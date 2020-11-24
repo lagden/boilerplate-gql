@@ -1,0 +1,7 @@
+"""
+Comentário da Query
+"""
+type Query {
+  "Comentário do método"
+  hello(name: String!): String
+}

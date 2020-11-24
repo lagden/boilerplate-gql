@@ -1,4 +1,4 @@
-# Boilerplate Rest
+# Boilerplate GraphQL
 
 [![XO code style][xo-img]][xo]
 
@@ -6,7 +6,7 @@
 [xo]:            https://github.com/sindresorhus/xo
 
 
-Boilerplate para desenvolvimento de uma API REST
+Boilerplate para desenvolvimento de uma API GraphQL
 
 
 ## Como usar
@@ -21,7 +21,7 @@ Use o `degit` para fazer o `scaffolding` do projeto.
 Entre no diretório do projeto:
 
 ```shell
-npx degit lagden/boilerplate-rest minha_api
+npx degit lagden/boilerplate-gql minha_api
 cd minha_api
 ```
 
@@ -89,23 +89,18 @@ npm test
 ```
 
 
-## Chamadas
+## Chamada
 
-Algumas chamadas de exemplo.
-
-
-```shell
-curl 'http://[::1]:5000/'
-```
+Chamada de exemplo.
 
 ```shell
-curl 'http://[::1]:5000/Api'
-```
-
-```shell
-curl 'http://[::1]:5000/echo' \
+curl 'http://[::1]:5000/gql' \
 -H 'content-type: application/json' \
--d '{"apenas": "um show"}'
+-d '{
+  "query": "query Hello($name: String!) { hello(name: $name) }",
+  "variables": {"name": "Sabrina"},
+  "operationName": "Hello"
+}'
 ```
 
 

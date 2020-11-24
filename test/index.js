@@ -3,30 +3,22 @@
 const test = require('ava')
 const app = require('./helpers/server')
 
+const query = `
+query Hello($name: String!) {
+  hello(name: $name)
+}`
+
 test('hello', async t => {
+	const data = {}
+	data.query = query
+	data.variables = {name: 'Sabrina'}
+	data.operationName = 'Hello'
 	const r = await app
-		.get('/')
-
-	const {hello} = r.body.data
-	t.is(r.status, 200)
-	t.is(hello, 'Hello World')
-})
-
-test('hello boilerplate', async t => {
-	const r = await app
-		.get('/boilerplate')
-
-	const {hello} = r.body.data
-	t.is(r.status, 200)
-	t.is(hello, 'Hello boilerplate')
-})
-
-test('echo', async t => {
-	const r = await app
-		.post('/echo')
+		.post('/gql')
 		.set('content-type', 'application/json')
-		.send({xxx: true})
+		.send(data)
 
+	const {hello} = r.body.data
 	t.is(r.status, 200)
-	t.true(r.body.xxx)
+	t.is(hello, 'Hello Sabrina')
 })
