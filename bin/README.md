@@ -1,9 +1,10 @@
 # Boilerplate Bin
 
-Boilerplate com `Bash Script` e `Node Script` que auxiliam no desenvolvimento no:
+Boilerplate com `Bash Script` e `Node Script` que auxiliam no desenvolvimento.
 
 - [Boilerplate Rest](https://github.com/lagden/boilerplate-rest)
 - [Boilerplate GraphQL](https://github.com/lagden/boilerplate-gql)
+- [Boilerplate Svelte](https://github.com/lagden/boilerplate-svelte)
 
 
 ## Como usar
@@ -30,13 +31,13 @@ Cria a imagem do projeto e envia para o `Registry`
 
 #### pkg
 
-Atualiza para última versão todas as dependêcias e devDependências do arquivo `package.json`.
+Atualiza para última versão todas as dependêcias e devDependências do arquivo `package.json`.  
 Mas não instala.
 
 
 #### zera
 
-Remove os `node_modules` e `package-lock.json`.
+Remove os `node_modules` e `package-lock.json`.  
 E instala tudo novamente.
 
 
@@ -57,7 +58,7 @@ Executa o teste unitário da aplicação via Docker Compose.
 
 #### wait
 
-Utilizado em conjunto na propriedade `command` no `docker-compose.yml`.
+Utilizado em conjunto na propriedade `command` no `docker-compose.yml`.  
 Ele testa a conexão com outra aplicação, por exemplo:
 
 ```yml
@@ -77,7 +78,7 @@ Observa os arquivos do projeto e reinicia a aplicação se houver alteração.
 
 **Atenção!**
 
-O `bin/watch` depende do [entr](https://github.com/eradman/entr).
+O `bin/watch` depende do [entr](https://github.com/eradman/entr)  
 Mas é possível ajustar o para utilizar o [nodemon](https://github.com/remy/nodemon)
 
 
