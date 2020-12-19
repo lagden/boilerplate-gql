@@ -15,7 +15,8 @@ services:
       APP_ENV: ${APP_ENV}
       PORT: ${PORT}
       PORT_PUBLISHED: ${PORT_PUBLISHED}
-      # coloque seus envs
+      # coloque suas variáveis
+      # ...
     ports:
       - ${PORT_PUBLISHED}:${PORT}
     networks:
