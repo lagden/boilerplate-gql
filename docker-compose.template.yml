@@ -13,10 +13,11 @@ services:
       DEBUG: ${DEBUG}
       NODE_ENV: ${NODE_ENV}
       APP_ENV: ${APP_ENV}
+      APP_NS: ${APP_NS}
+      VERSION: ${VERSION}
       PORT: ${PORT}
       PORT_PUBLISHED: ${PORT_PUBLISHED}
-      # coloque suas variáveis
-      # ...
+      # coloque seus envs
     ports:
       - ${PORT_PUBLISHED}:${PORT}
     networks:

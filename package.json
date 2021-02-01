@@ -1,5 +1,5 @@
 {
-  "name": "boilerplate-rest",
+  "name": "boilerplate-gql",
   "version": "1.0.0",
   "license": "MIT",
   "scripts": {
@@ -10,31 +10,26 @@
     "start": "node server"
   },
   "dependencies": {
-    "@graphql-tools/graphql-file-loader": "6.2.6",
+    "@graphql-tools/graphql-file-loader": "6.2.7",
     "@graphql-tools/load": "6.2.5",
     "@graphql-tools/schema": "7.1.2",
     "@koa/router": "10.0.0",
-    "@tadashi/koa-base": "3.16.0",
+    "@tadashi/koa-base": "3.17.1",
     "debug": "4.3.1",
-    "graphql": "15.4.0",
+    "graphql": "15.5.0",
+    "koa": "2.13.1",
     "koa-bodyparser": "4.3.0",
     "lodash.merge": "4.6.2",
-    "supports-color": "8.1.0"
+    "supports-color": "8.1.1"
   },
   "devDependencies": {
     "@tadashi/hex-id": "2.0.0",
-    "ava": "3.14.0",
-    "eslint": "7.15.0",
-    "eslint-config-xo": "0.33.1",
-    "eslint-plugin-unicorn": "24.0.0",
+    "ava": "3.15.0",
+    "eslint": "7.19.0",
+    "eslint-config-xo": "0.34.0",
+    "eslint-plugin-unicorn": "27.0.0",
     "hash-to-port": "1.2.0",
     "nyc": "15.1.0",
-    "supertest": "6.0.1"
-  },
-  "ava": {
-    "files": [
-      "test/**/*",
-      "!test/helpers/**/*"
-    ]
+    "supertest": "6.1.3"
   }
 }
