@@ -20,7 +20,7 @@ Existem 2 maneiras de trabalhar:
 Use o `degit` para fazer o `scaffolding` do projeto:
 
 ```shell
-npx degit lagden/boilerplate-gql minha_api
+npx degit lagden/boilerplate-gql#main minha_api
 cd minha_api
 ```
 
