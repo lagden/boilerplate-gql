@@ -1,24 +1,30 @@
 'use strict'
 
 const test = require('ava')
-const app = require('./helper/server')
+const got = require('got')
+const server = require('./helper/server')
 
 const query = `
 query Hello($name: String!) {
-  hello(name: $name)
+	hello(name: $name)
 }`
 
+test.before(async t => {
+	t.context.baseUrl = await server()
+})
+
 test('hello', async t => {
-	const data = {}
-	data.query = query
-	data.variables = {name: 'Sabrina'}
-	data.operationName = 'Hello'
-	const r = await app
-		.post('/gql')
-		.set('content-type', 'application/json')
-		.send(data)
+	const json = {}
+	json.query = query
+	json.variables = {name: 'Sabrina'}
+	json.operationName = 'Hello'
+	const r = await got.post(`${t.context.baseUrl}/gql`, {
+		throwHttpErrors: false,
+		responseType: 'json',
+		json
+	})
 
 	const {hello} = r.body.data
-	t.is(r.status, 200)
+	t.is(r.statusCode, 200)
 	t.is(hello, 'Hello Sabrina')
 })
