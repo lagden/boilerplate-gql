@@ -28,3 +28,18 @@ test('hello', async t => {
 	t.is(r.statusCode, 200)
 	t.is(hello, 'Hello Sabrina')
 })
+
+test('error', async t => {
+	const json = {}
+	json.query = query
+	json.variables = {name: 'Sabrina'}
+	json.operationName = 'Nope'
+	const r = await got.post(`${t.context.baseUrl}/gql`, {
+		throwHttpErrors: false,
+		responseType: 'json',
+		json
+	})
+
+	t.is(r.statusCode, 500)
+	t.snapshot(r.body)
+})
