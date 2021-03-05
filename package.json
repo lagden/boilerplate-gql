@@ -19,6 +19,7 @@
     "graphql": "15.5.0",
     "koa": "2.13.1",
     "koa-bodyparser": "4.3.0",
+    "local-access": "1.1.0",
     "lodash.merge": "4.6.2",
     "supports-color": "8.1.1"
   },
