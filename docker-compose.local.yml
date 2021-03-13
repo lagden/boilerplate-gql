@@ -13,6 +13,7 @@ services:
     environment:
       WATCH_FOLDERS: "${WATCH_FOLDERS}"
       WATCH_CMD: "${WATCH_CMD}"
+      HOSTNAME_CUSTOM: "${HOSTNAME_CUSTOM}"
     volumes:
       - .:/home/node/app
       - /home/node/app/node_modules

@@ -30,7 +30,7 @@ COMPOSE_TEMPLATE="${CURR_FOLDER}/docker-compose.template.yml"
 COMPOSE_LOCAL="${CURR_FOLDER}/docker-compose.local.yml"
 COMPOSE_TEST="${CURR_FOLDER}/docker-compose.test.yml"
 
-export DOCKERFILE="${CURR_FOLDER}/Dockerfile"
+export DOCKERFILE="${CURR_FOLDER}/Dockerfile.dev"
 
 _cleanup() {
 	docker-compose \

@@ -73,7 +73,7 @@ bin/watch_local -e development
 Acesse o URL: [http://[::1]:5000/](http://[::1]:5000/).
 
 
-**Atenção!**
+⚠️ **Atenção!**
 
 O `bin/watch_local` depende do [entr](https://github.com/eradman/entr).  
 Mas é possível ajustar o para utilizar o [nodemon](https://github.com/remy/nodemon)
@@ -81,7 +81,7 @@ Mas é possível ajustar o para utilizar o [nodemon](https://github.com/remy/nod
 Crie o arquivo `.env-local` e sobrescreva os valores, por exemplo:
 
 ```shell
-WATCH_CMD="nodemon --exec npm start"
+WATCH_CMD="nodemon -e js,json --watch server --exec npm start"
 ```
 
 #### Test
