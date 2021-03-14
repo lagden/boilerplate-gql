@@ -45,7 +45,7 @@ Existem algumas dependências.
 ### bin
 
 ```shell
-npx degit lagden/boilerplate-bin#main bin
+npx degit lagden/boilerplate-bin/files#main bin
 ```
 
 Saiba mais sobre os scripts do **bin**:  
@@ -55,7 +55,7 @@ https://github.com/lagden/boilerplate-bin
 ### envs
 
 ```shell
-npx degit lagden/boilerplate-envs#main ./ --force
+npx degit lagden/boilerplate-envs/files#main ./ --force
 ```
 
 Saiba mais sobre as **envs**:  
@@ -67,7 +67,7 @@ https://github.com/lagden/boilerplate-envs
 Caso queira utilizar o **docker** no desenvolvimento.
 
 ```shell
-npx degit lagden/boilerplate-docker-nodejs#main ./ --force
+npx degit lagden/boilerplate-docker-nodejs/files#main ./ --force
 ```
 
 Saiba mais sobre o **docker**:  
