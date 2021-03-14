@@ -9,9 +9,6 @@
 Boilerplate para desenvolvimento de uma API GraphQL.
 
 - [Instalação](#instalação)
-    - [bin](#bin)
-    - [envs](#envs)
-    - [docker](#docker)
 - [Como utilizar](#como-utilizar)
     - [watch](#watch)
         - [entr](#entr)
@@ -28,50 +25,22 @@ Boilerplate para desenvolvimento de uma API GraphQL.
 
 Use o [degit](https://github.com/Rich-Harris/degit) para fazer o `scaffolding` do projeto.
 
+Existem algumas dependências.
+
+- [bin](https://github.com/lagden/boilerplate-bin)
+- [envs](https://github.com/lagden/boilerplate-envs)
+- [docker](https://github.com/lagden/boilerplate-docker-nodejs) (opcional)
+
+
+**Exemplo:**
+
 ```shell
 npx degit lagden/boilerplate-gql#main projeto
 cd projeto
-```
-
-Existem algumas dependências.
-
-- [bin](#bin)
-- [envs](#envs)
-- [docker](#docker) (opcional)
-
-⚠️ **Obs.:** Tudo será feito dentro do diretório `projeto`.
-
-
-### bin
-
-```shell
 npx degit lagden/boilerplate-bin/files#main bin
-```
-
-Saiba mais sobre os scripts do **bin**:  
-https://github.com/lagden/boilerplate-bin
-
-
-### envs
-
-```shell
 npx degit lagden/boilerplate-envs/files#main ./ --force
-```
-
-Saiba mais sobre as **envs**:  
-https://github.com/lagden/boilerplate-envs
-
-
-### docker
-
-Caso queira utilizar o **docker** no desenvolvimento.
-
-```shell
 npx degit lagden/boilerplate-docker-nodejs/files#main ./ --force
 ```
-
-Saiba mais sobre o **docker**:  
-https://github.com/lagden/boilerplate-docker-nodejs
 
 
 ## Como utilizar
