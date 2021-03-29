@@ -46,7 +46,7 @@ Existem algumas dependências.
 **Exemplo:**
 
 ```shell
-yarn dlx degit lagden/boilerplate-gql projeto
+yarn dlx degit lagden/boilerplate-gql#main projeto
 cd projeto
 yarn dlx degit lagden/boilerplate-bin/files#main bin
 yarn dlx degit lagden/boilerplate-envs/files#main ./ --force
