@@ -2,8 +2,8 @@
 
 [![XO code style][xo-img]][xo]
 
-[xo-img]:        https://img.shields.io/badge/code_style-XO-5ed9c7.svg
-[xo]:            https://github.com/sindresorhus/xo
+[xo-img]: https://img.shields.io/badge/code_style-XO-5ed9c7.svg
+[xo]:     https://github.com/sindresorhus/xo
 
 
 Boilerplate para desenvolvimento de uma API GraphQL.
@@ -74,7 +74,7 @@ bin/start_local
 Se for rodar via **docker**, utilize:
 
 ```shell
-bin/start
+bin/start -s app
 ```
 
 ⚠️ **Ressalvas**
@@ -83,7 +83,7 @@ No **docker**, caso seja instalado um novo pacote, é necessário fazer o `build
 Pare o container (`command+c` ou `control+c`) e rode novamente passando o parâmetro `-b`:
 
 ```shell
-bin/start -b
+bin/start -bs app
 ```
 
 
@@ -111,6 +111,12 @@ Crie o arquivo `.env-local` na raiz do projeto e insira:
 ```
 WATCH_LOCAL_CMD="yarn dlx nodemon -e js,json --watch server --exec npm start"
 ```
+
+⚠️ **Ressalvas**
+
+Pode instalar global também.
+
+---
 
 Então, execute o comando:
 
@@ -161,8 +167,8 @@ Se o parâmetro `-e` não for definido, o padrão é `staging`.
 
 Para executar o **deploy** é necessário alguns binários instalados:
 
-- **envsubst**
-- **rsync**
+- **envsubst** by Bruno Haible
+- **rsync** by Andrew Tridgell, Wayne Davison and others
 
 O fluxo do sistema de **deploy** é simples:
 
