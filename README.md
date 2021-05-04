@@ -82,7 +82,7 @@ bin/docker/start
 ⚠️ **Ressalvas**
 
 No **docker**, caso seja instalado um novo pacote, é necessário fazer o `build` da imagem novamente.  
-Pare o container (`command + c` ou `control + c`) e rode novamente passando o parâmetro `-b`:
+Pare o container (`bin/docker/stop` ou `command + c` ou `control + c`) e rode novamente passando o parâmetro `-b`:
 
 ```shell
 bin/docker/start -b
@@ -97,7 +97,7 @@ Rodando via **docker** isso ocorre por padrão, mas **local** é necessário faz
 
 #### entr
 
-Se estiver rodando em **BSD**, **Mac OS**, e **Linux**, basta instalar o [entr](https://github.com/eradman/entr) e executar:
+Se estiver rodando em **BSD** ou **Mac OS** ou **Linux**, basta instalar o [entr](https://github.com/eradman/entr) e executar:
 
 ```shell
 bin/local/watch
@@ -116,7 +116,11 @@ WATCH_LOCAL_CMD="yarn dlx nodemon -e js,json --watch server --exec npm start"
 
 ⚠️ **Ressalvas**
 
-Pode instalar global também.
+Pode instalar global também e configurar da seguinte forma:
+
+```
+WATCH_LOCAL_CMD="nodemon -e js,json --watch server --exec npm start"
+```
 
 ---
 
@@ -140,7 +144,7 @@ bin/local/test
 **docker:**
 
 ```shell
-bin/test -s app
+bin/docker/test -s app
 ```
 
 
@@ -187,7 +191,7 @@ bin/docker/deploy -e production
 
 ## Exemplo
 
-Chamada de exemplo via **curl**.
+Chamada de exemplo da API via **curl**.
 
 ```shell
 curl 'http://[::1]:5000/gql' \
