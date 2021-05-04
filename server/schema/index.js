@@ -1,16 +1,21 @@
-'use strict'
+import path from 'node:path'
+import {fileURLToPath} from 'node:url'
+import {loadSchema} from '@graphql-tools/load'
+import {GraphQLFileLoader} from '@graphql-tools/graphql-file-loader'
+import {addResolversToSchema} from '@graphql-tools/schema'
+import resolvers from './resolvers/index.js'
 
-const {resolve} = require('path')
-const {loadSchemaSync} = require('@graphql-tools/load')
-const {GraphQLFileLoader} = require('@graphql-tools/graphql-file-loader')
-const {addResolversToSchema} = require('@graphql-tools/schema')
+const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
-const resolvers = require('./resolvers')
-const schema = loadSchemaSync(resolve(__dirname, 'schema.graphql'), {loaders: [new GraphQLFileLoader()]})
+const schema = await loadSchema(path.resolve(__dirname, 'schema.graphql'), {
+	loaders: [
+		new GraphQLFileLoader()
+	]
+})
 
 const schemaWithResolvers = addResolversToSchema({
 	schema,
 	resolvers
 })
 
-module.exports = schemaWithResolvers
+export default schemaWithResolvers

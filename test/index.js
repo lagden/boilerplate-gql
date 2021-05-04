@@ -1,8 +1,6 @@
-'use strict'
-
-const test = require('ava')
-const got = require('got')
-const server = require('./helper/server')
+import test from 'ava'
+import got from 'got'
+import server from './helper/server.js'
 
 const query = `
 query Hello($name: String!) {

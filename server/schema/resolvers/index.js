@@ -1,15 +1,21 @@
-'use strict'
+import path from 'node:path'
+import {fileURLToPath} from 'node:url'
+import {readdirSync} from 'node:fs'
+import merge from 'lodash.merge'
 
-const {readdirSync} = require('fs')
-const {join} = require('path')
-const merge = require('lodash.merge')
+const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
 const pattern = /^_[\w-_]+\.js/
-const files = readdirSync(__dirname).filter(f => pattern.test(f)).map(f => join(__dirname, f))
+const files = readdirSync(__dirname).filter(f => pattern.test(f)).map(f => path.join(__dirname, f))
 const resolvers = {}
 
+const imports = []
 for (const file of files) {
-	merge(resolvers, require(file))
+	imports.push(import(file))
 }
 
-module.exports = resolvers
+for await (const mod of imports) {
+	merge(resolvers, mod)
+}
+
+export default resolvers

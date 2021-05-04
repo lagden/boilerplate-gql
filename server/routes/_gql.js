@@ -1,10 +1,8 @@
-'use strict'
-
-const Router = require('@koa/router')
-const bodyparser = require('koa-bodyparser')
-const {graphql} = require('graphql')
-const schema = require('../schema')
-// const debug = require('../lib/debug')
+import {graphql} from 'graphql'
+import bodyparser from 'koa-bodyparser'
+import Router from '@koa/router'
+import schema from '../schema/index.js'
+// import * as debug from '../lib/debug.js'
 
 const router = new Router()
 
@@ -26,4 +24,4 @@ async function gql(ctx) {
 router
 	.post('/gql', bodyparser(), gql)
 
-module.exports = router
+export default router
