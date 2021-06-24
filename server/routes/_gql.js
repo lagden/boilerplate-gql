@@ -14,7 +14,7 @@ async function gql(ctx) {
 		const {originalError} = error
 		const {status, code, message} = originalError ?? error
 		ctx.throw(status ?? code ?? 500, message, {
-			graphql: result
+			graphql: result,
 		})
 	}
 

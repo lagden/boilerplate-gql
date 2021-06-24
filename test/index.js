@@ -19,7 +19,7 @@ test('hello', async t => {
 	const r = await got.post(`${t.context.baseUrl}/gql`, {
 		throwHttpErrors: false,
 		responseType: 'json',
-		json
+		json,
 	})
 
 	const {hello} = r.body.data
@@ -35,7 +35,7 @@ test('error', async t => {
 	const r = await got.post(`${t.context.baseUrl}/gql`, {
 		throwHttpErrors: false,
 		responseType: 'json',
-		json
+		json,
 	})
 
 	t.is(r.statusCode, 500)

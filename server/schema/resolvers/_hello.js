@@ -2,9 +2,8 @@ function hello(_root, {name = 'World'}) {
 	return `Hello ${name}`
 }
 
-
 const Query = {
-	hello
+	hello,
 }
 
 export {Query}

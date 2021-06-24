@@ -9,13 +9,13 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
 const schema = await loadSchema(path.resolve(__dirname, 'schema.graphql'), {
 	loaders: [
-		new GraphQLFileLoader()
-	]
+		new GraphQLFileLoader(),
+	],
 })
 
 const schemaWithResolvers = addResolversToSchema({
 	schema,
-	resolvers
+	resolvers,
 })
 
 export default schemaWithResolvers
