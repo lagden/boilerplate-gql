@@ -52,7 +52,7 @@ Existem algumas dependências.
 yarn dlx degit lagden/boilerplate-gql#main projeto
 cd projeto
 yarn dlx degit lagden/boilerplate-bin/files#main bin
-yarn dlx degit lagden/boilerplate-eslint/files/backend#main ./ --force
+yarn dlx degit lagden/boilerplate-eslint/files/backend/.eslintrc.yml#main ./.eslintrc.yml --force
 yarn dlx degit lagden/boilerplate-envs/files#main ./ --force
 yarn dlx degit lagden/boilerplate-docker-nodejs/files#main ./ --force
 ```
