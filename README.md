@@ -1,12 +1,9 @@
 # Boilerplate GraphQL
 
 [![Coverage Status][coveralls-img]][coveralls]
-[![XO code style][xo-img]][xo]
 
 [coveralls-img]:   https://coveralls.io/repos/github/lagden/boilerplate-gql/badge.svg?branch=main
 [coveralls]:       https://coveralls.io/github/lagden/boilerplate-gql?branch=main
-[xo-img]:          https://img.shields.io/badge/code_style-XO-5ed9c7.svg
-[xo]:              https://github.com/sindresorhus/xo
 
 
 Boilerplate para desenvolvimento de uma API GraphQL.
@@ -28,11 +25,11 @@ Boilerplate para desenvolvimento de uma API GraphQL.
 
 ⚠️ **Importante**
 
-Instale o [Yarn 2 aka Berry](https://yarnpkg.com/getting-started/install).
+Instale o [Yarn](https://yarnpkg.com/getting-started/install).
 
 ```
 npm install -g yarn
-yarn set version berry
+yarn set version stable
 ```
 
 ---
@@ -63,7 +60,7 @@ yarn dlx degit lagden/boilerplate-docker-nodejs/files#main ./ --force
 Após finalizado o `scaffolding` do projeto, instale os pacotes.
 
 ```shell
-bin/node/zera
+bin/node/zera -y
 ```
 
 Feito isso, o projeto está pronto para rodar.

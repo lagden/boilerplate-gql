@@ -2,7 +2,7 @@ import test from 'ava'
 import got from 'got'
 import server from './helper/server.js'
 
-const query = `
+const source = `
 query Hello($name: String!) {
 	hello(name: $name)
 }`
@@ -13,8 +13,8 @@ test.before(async t => {
 
 test('hello', async t => {
 	const json = {}
-	json.query = query
-	json.variables = {name: 'Sabrina'}
+	json.source = source
+	json.variableValues = {name: 'Sabrina'}
 	json.operationName = 'Hello'
 	const r = await got.post(`${t.context.baseUrl}/gql`, {
 		throwHttpErrors: false,
@@ -29,8 +29,8 @@ test('hello', async t => {
 
 test('error', async t => {
 	const json = {}
-	json.query = query
-	json.variables = {name: 'Sabrina'}
+	json.source = source
+	json.variableValues = {name: 'Sabrina'}
 	json.operationName = 'Nope'
 	const r = await got.post(`${t.context.baseUrl}/gql`, {
 		throwHttpErrors: false,
