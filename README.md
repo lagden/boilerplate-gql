@@ -195,8 +195,8 @@ Chamada de exemplo da API via **curl**.
 curl 'http://[::1]:5000/gql' \
 -H 'content-type: application/json' \
 -d '{
-  "query": "query Hello($name: String!) { hello(name: $name) }",
-  "variables": {"name": "Sabrina"},
+  "source": "query Hello($name: String!) { hello(name: $name) }",
+  "variableValues": {"name": "Sabrina"},
   "operationName": "Hello"
 }'
 ```
