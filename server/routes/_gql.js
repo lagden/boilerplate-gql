@@ -7,11 +7,17 @@ import schema from '../schema/index.js'
 const router = new Router()
 
 async function gql(ctx) {
-	const {
+	let {
+		query,
+		variables,
+		//
 		source,
 		variableValues,
 		operationName,
 	} = ctx.request.body
+
+	source = source ?? query
+	variableValues = variableValues ?? variables
 
 	const result = await graphql({
 		schema,

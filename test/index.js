@@ -27,6 +27,22 @@ test('hello', async t => {
 	t.is(hello, 'Hello Sabrina')
 })
 
+test('hello old way', async t => {
+	const json = {}
+	json.query = source
+	json.variables = {name: 'Sabrina'}
+	json.operationName = 'Hello'
+	const r = await got.post(`${t.context.baseUrl}/gql`, {
+		throwHttpErrors: false,
+		responseType: 'json',
+		json,
+	})
+
+	const {hello} = r.body.data
+	t.is(r.statusCode, 200)
+	t.is(hello, 'Hello Sabrina')
+})
+
 test('error', async t => {
 	const json = {}
 	json.source = source
