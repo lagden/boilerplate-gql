@@ -31,7 +31,7 @@ Boilerplate para desenvolvimento de uma API GraphQL.
 Instale o [Yarn](https://yarnpkg.com/getting-started/install).
 
 ```
-npm install -g yarn
+npm i --location=global yarn
 yarn set version stable
 ```
 

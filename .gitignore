@@ -6,6 +6,7 @@ resource
 
 # Boilerplate
 _cleanup
+_init
 
 # node
 node_modules
