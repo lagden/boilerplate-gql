@@ -19,7 +19,7 @@ node_modules
 .pnp.*
 .yarn/*
 !.yarnrc.yml
-!.yarn/cache
+# !.yarn/cache
 !.yarn/patches
 !.yarn/plugins
 !.yarn/releases
