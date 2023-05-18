@@ -9,6 +9,8 @@
 [coveralls]:       https://coveralls.io/github/lagden/boilerplate-gql?branch=main
 
 
+Boilerplate para desenvolvimento de uma aplicação.
+
 - [Instalação](#instalação)
 - [Como utilizar](#como-utilizar)
     - [watch](#watch)
