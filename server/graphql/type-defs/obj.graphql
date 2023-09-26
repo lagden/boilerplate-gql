@@ -1,0 +1,11 @@
+scalar JSON
+
+type More {
+  a: Int
+  b: String
+  c: JSON
+}
+
+type Query {
+  obj(c: String): More
+}

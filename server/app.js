@@ -1,6 +1,6 @@
+import * as debug from '@tadashi/debug'
 import base from '@tadashi/koa-base'
-import routes from './routes/index.js'
-import * as debug from './lib/debug.js'
+import routes from './routes/routes.js'
 
 const app = base({
 	error: true,

@@ -142,7 +142,7 @@ bin/docker/deploy -e production
 Chamada de exemplo da API via **curl**.
 
 ```shell
-curl 'http://[::1]:5001/gql' \
+curl 'http://127.0.0.1:5001/gql' \
 -H 'content-type: application/json' \
 -d '{
   "source": "query Hello($name: String!) { hello(name: $name) }",

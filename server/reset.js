@@ -1,5 +1,5 @@
 import process from 'node:process'
-import * as debug from './lib/debug.js'
+import * as debug from '@tadashi/debug'
 
 const {
 	APP_ENV,

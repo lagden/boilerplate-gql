@@ -1,8 +1,7 @@
 import {graphql} from 'graphql'
 import bodyparser from 'koa-bodyparser'
 import Router from '@koa/router'
-import schema from '../schema/index.js'
-// import * as debug from '../lib/debug.js'
+import schema from '../graphql/schema.js'
 
 const router = new Router()
 
@@ -19,7 +18,7 @@ async function gql(ctx) {
 	source = source ?? query
 	variableValues = variableValues ?? variables
 
-	const result = await graphql({
+	const response = await graphql({
 		schema,
 		source,
 		variableValues,
@@ -27,16 +26,29 @@ async function gql(ctx) {
 		contextValue: ctx,
 	})
 
-	if (result.errors) {
-		const [error] = result.errors
-		const {originalError} = error
-		const {status, code, message} = originalError ?? error
-		ctx.throw(status ?? code ?? 500, message, {
-			graphql: result,
+	if (response.errors) {
+		const _errors = []
+		for (const error of response.errors) {
+			// const {originalError} = error
+			// const {message: messageOriginal} = originalError ?? {}
+			// if (messageOriginal) {
+			// 	_errors.push({message: messageOriginal})
+			// }
+
+			const {message} = error
+			if (message) {
+				_errors.push({message})
+			}
+		}
+
+		ctx.throw(500, 'Internal Server Error', {
+			graphql: {
+				errors: _errors,
+			},
 		})
 	}
 
-	ctx.body = result
+	ctx.body = response
 }
 
 router
