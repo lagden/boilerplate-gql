@@ -1,6 +1,8 @@
-import test from 'ava'
+import {promisify} from 'node:util'
+import {test} from 'node:test'
+import assert from 'node:assert/strict'
 import got from 'got'
-import server from './helper/server.js'
+import run from './helper/server.js'
 
 const source = {}
 source.hello = `
@@ -8,6 +10,7 @@ query Hello($name: String!) {
 	hello(name: $name)
 }
 `
+
 source.obj = `
 query Obj($c: String) {
 	obj(c: $c) {
@@ -18,83 +21,72 @@ query Obj($c: String) {
 }
 `
 
-test.before(async t => {
-	t.context.baseUrl = await server()
-})
+test('app', async t => {
+	const {baseUrl, server} = run()
 
-test('hello', async t => {
-	const json = {}
-	json.source = source.hello
-	json.variableValues = {name: 'Sabrina'}
-	json.operationName = 'Hello'
-	const r = await got.post(`${t.context.baseUrl}/gql`, {
-		throwHttpErrors: false,
-		responseType: 'json',
-		json,
+	t.after(async () => {
+		await promisify(server.close.bind(server))()
 	})
 
-	const {hello} = r.body.data
-	t.is(r.statusCode, 200)
-	t.is(hello, 'Hello Sabrina')
-})
+	await t.test('hello', async () => {
+		const json = {}
+		json.query = source.hello
+		json.variables = {name: 'Sabrina'}
+		json.operationName = 'Hello'
+		const r = await got.post(`${baseUrl}/gql`, {
+			throwHttpErrors: false,
+			responseType: 'json',
+			json,
+		})
 
-test('hello old way', async t => {
-	const json = {}
-	json.query = source.hello
-	json.variables = {name: 'Sabrina'}
-	json.operationName = 'Hello'
-	const r = await got.post(`${t.context.baseUrl}/gql`, {
-		throwHttpErrors: false,
-		responseType: 'json',
-		json,
+		const {hello} = r.body.data
+
+		assert.equal(r.statusCode, 200)
+		assert.equal(hello, 'Hello Sabrina')
 	})
 
-	const {hello} = r.body.data
-	t.is(r.statusCode, 200)
-	t.is(hello, 'Hello Sabrina')
-})
+	await t.test('obj', async () => {
+		const json = {}
+		json.query = source.obj
+		json.variables = {c: 'Bar'}
+		json.operationName = 'Obj'
+		const r = await got.post(`${baseUrl}/gql`, {
+			throwHttpErrors: false,
+			responseType: 'json',
+			json,
+		})
 
-test('error', async t => {
-	const json = {}
-	json.source = source.hello
-	json.variableValues = {name: 'Sabrina'}
-	json.operationName = 'Nope'
-	const r = await got.post(`${t.context.baseUrl}/gql`, {
-		throwHttpErrors: false,
-		responseType: 'json',
-		json,
+		assert.equal(r.statusCode, 200)
+		assert.equal(r.body.data.obj.c.c, 'Bar')
 	})
 
-	t.is(r.statusCode, 500)
-	t.snapshot(r.body)
-})
+	await t.test('error', async () => {
+		const json = {}
+		json.query = source.hello
+		json.variables = {name: 'Sabrina'}
+		json.operationName = 'Nope'
+		const r = await got.post(`${baseUrl}/gql`, {
+			throwHttpErrors: false,
+			responseType: 'json',
+			json,
+		})
 
-test('obj', async t => {
-	const json = {}
-	json.source = source.obj
-	json.variableValues = {c: 'Bar'}
-	json.operationName = 'Obj'
-	const r = await got.post(`${t.context.baseUrl}/gql`, {
-		throwHttpErrors: false,
-		responseType: 'json',
-		json,
+		assert.equal(r.statusCode, 500)
+		assert.equal(r.body.errors[0].message, 'Unknown operation named "Nope".')
 	})
 
-	t.is(r.statusCode, 200)
-	t.snapshot(r.body)
-})
+	await t.test('error xxx', async () => {
+		const json = {}
+		json.query = source.hello
+		json.variables = {name: 'xxx'}
+		json.operationName = 'Hello'
+		const r = await got.post(`${baseUrl}/gql`, {
+			throwHttpErrors: false,
+			responseType: 'json',
+			json,
+		})
 
-test('yoga', async t => {
-	const json = {}
-	json.query = source.obj
-	json.variables = {c: 'Bar'}
-	json.operationName = 'Obj'
-	const r = await got.post(`${t.context.baseUrl}/gql-yoga`, {
-		throwHttpErrors: false,
-		responseType: 'json',
-		json,
+		assert.equal(r.statusCode, 403)
+		assert.equal(r.body.errors[0].message, 'The name "xxx" is not permitted.')
 	})
-
-	t.is(r.statusCode, 200)
-	t.snapshot(r.body)
 })

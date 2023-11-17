@@ -1,11 +1,11 @@
 scalar JSON
 
 type More {
-  a: Int
-  b: String
-  c: JSON
+	a: Int
+	b: String
+	c: JSON
 }
 
 type Query {
-  obj(c: String): More
+	obj(c: String): More
 }

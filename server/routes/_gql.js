@@ -1,6 +1,7 @@
 import {graphql} from 'graphql'
 import bodyparser from 'koa-bodyparser'
 import Router from '@koa/router'
+import {uuid} from '@tadashi/common'
 import schema from '../graphql/schema.js'
 
 const router = new Router()
@@ -27,31 +28,24 @@ async function gql(ctx) {
 	})
 
 	if (response.errors) {
-		const _errors = []
-		for (const error of response.errors) {
-			// const {originalError} = error
-			// const {message: messageOriginal} = originalError ?? {}
-			// if (messageOriginal) {
-			// 	_errors.push({message: messageOriginal})
-			// }
-
-			const {message} = error
-			if (message) {
-				_errors.push({message})
-			}
+		const [error] = response.errors
+		/* c8 ignore start */
+		error.log = {
+			level: 'error',
+			extensions_status_code: error?.extensions?.http?.status ?? 500,
+			extensions_message: error?.extensions?.message ?? '',
+			message: error.message,
+			tracking_error: uuid(false),
 		}
+		/* c8 ignore stop */
 
-		ctx.throw(500, 'Internal Server Error', {
-			graphql: {
-				errors: _errors,
-			},
-		})
+		ctx.status = error?.extensions?.http?.status ?? 500
+		ctx.app.emit('error', error)
 	}
 
 	ctx.body = response
 }
 
-router
-	.post('/gql', bodyparser(), gql)
+router.post('/gql', bodyparser(), gql)
 
 export default router

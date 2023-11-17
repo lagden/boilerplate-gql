@@ -7,9 +7,13 @@ import merge from 'lodash.merge'
 const _typeDefs = new URL('type-defs/*.graphql', import.meta.url).href
 const _resolvers = new URL('resolvers/*.js', import.meta.url).href
 
-const [typeDefs, resolversModules] = await Promise.all([
+// prettier-ignore
+const [
+	typeDefs,
+	resolversModules
+] = await Promise.all([
 	loadFiles(_typeDefs),
-	loadFiles(_resolvers),
+	loadFiles(_resolvers)
 ])
 
 const resolvers = {}
