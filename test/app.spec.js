@@ -1,5 +1,5 @@
 import {promisify} from 'node:util'
-import {test} from 'node:test'
+import {after, describe, it} from 'node:test'
 import assert from 'node:assert/strict'
 import got from 'got'
 import run from './helper/server.js'
@@ -21,14 +21,14 @@ query Obj($c: String) {
 }
 `
 
-test('app', async t => {
+describe('app', () => {
 	const {baseUrl, server} = run()
 
-	t.after(async () => {
+	after(async () => {
 		await promisify(server.close.bind(server))()
 	})
 
-	await t.test('hello', async () => {
+	it('hello', async () => {
 		const json = {}
 		json.query = source.hello
 		json.variables = {name: 'Sabrina'}
@@ -45,7 +45,7 @@ test('app', async t => {
 		assert.equal(hello, 'Hello Sabrina')
 	})
 
-	await t.test('obj', async () => {
+	it('obj', async () => {
 		const json = {}
 		json.query = source.obj
 		json.variables = {c: 'Bar'}
@@ -60,7 +60,7 @@ test('app', async t => {
 		assert.equal(r.body.data.obj.c.c, 'Bar')
 	})
 
-	await t.test('error', async () => {
+	it('error', async () => {
 		const json = {}
 		json.query = source.hello
 		json.variables = {name: 'Sabrina'}
@@ -75,7 +75,7 @@ test('app', async t => {
 		assert.equal(r.body.errors[0].message, 'Unknown operation named "Nope".')
 	})
 
-	await t.test('error xxx', async () => {
+	it('error xxx', async () => {
 		const json = {}
 		json.query = source.hello
 		json.variables = {name: 'xxx'}
