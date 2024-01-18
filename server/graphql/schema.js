@@ -10,10 +10,10 @@ const _resolvers = new URL('resolvers/*.js', import.meta.url).href
 // prettier-ignore
 const [
 	typeDefs,
-	resolversModules
+	resolversModules,
 ] = await Promise.all([
 	loadFiles(_typeDefs),
-	loadFiles(_resolvers)
+	loadFiles(_resolvers),
 ])
 
 const resolvers = {}

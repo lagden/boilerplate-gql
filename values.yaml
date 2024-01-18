@@ -9,11 +9,11 @@ resources:
 
 ingress:
   enabled: true
-  domain: "boilerplate.io"
-  host: "gql"
-  path: "/"
+  domain: 'boilerplate.io'
+  host: 'gql'
+  path: '/'
   annotations:
-    nginx.ingress.kubernetes.io/proxy-body-size: "15m"
+    nginx.ingress.kubernetes.io/proxy-body-size: '15m'
 
 autoscaling:
   enabled: true
@@ -25,14 +25,14 @@ autoscaling:
 extraEnv:
   # General
   - name: APP_NS
-    value: "gql"
+    value: 'gql'
   - name: NODE_ENV
-    value: "production"
+    value: 'production'
   - name: TZ
-    value: "America/Sao_Paulo"
+    value: 'America/Sao_Paulo'
 
   # Debug
   - name: DEBUG_PREFIX
-    value: "gql"
+    value: 'gql'
   - name: DEBUG
-    value: "gql:*"
+    value: 'gql:*'

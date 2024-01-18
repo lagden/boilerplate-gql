@@ -1,92 +1,94 @@
-import {promisify} from 'node:util'
-import {after, describe, it} from 'node:test'
+import {before, after, test} from 'node:test'
 import assert from 'node:assert/strict'
 import got from 'got'
-import run from './helper/server.js'
+import {start, stop} from './__helper/server.js'
+import {source} from './__fixture/source.js'
 
-const source = {}
-source.hello = `
-query Hello($name: String!) {
-	hello(name: $name)
+const headers = {
+	accept: 'application/graphql-response+json, application/json, multipart/mixed',
 }
-`
+let server
+let prefixUrl
 
-source.obj = `
-query Obj($c: String) {
-	obj(c: $c) {
-		a
-		b
-		c
+before(async () => {
+	// eslint-disable-next-line no-extra-semi
+	;({server, prefixUrl} = await start(server))
+})
+
+after(async () => {
+	await stop(server)
+})
+
+test('hello', async () => {
+	const json = {
+		query: source.hello,
+		variables: {name: 'Sabrina'},
+		operationName: 'Hello',
 	}
-}
-`
 
-describe('app', () => {
-	const {baseUrl, server} = run()
-
-	after(async () => {
-		await promisify(server.close.bind(server))()
+	const r = await got.post(`${prefixUrl}/gql`, {
+		headers,
+		throwHttpErrors: false,
+		responseType: 'json',
+		json,
 	})
 
-	it('hello', async () => {
-		const json = {}
-		json.query = source.hello
-		json.variables = {name: 'Sabrina'}
-		json.operationName = 'Hello'
-		const r = await got.post(`${baseUrl}/gql`, {
-			throwHttpErrors: false,
-			responseType: 'json',
-			json,
-		})
+	const {hello} = r.body.data
 
-		const {hello} = r.body.data
+	assert.equal(r.statusCode, 200)
+	assert.equal(hello, 'Hello Sabrina')
+})
 
-		assert.equal(r.statusCode, 200)
-		assert.equal(hello, 'Hello Sabrina')
+test('obj', async () => {
+	const json = {
+		query: source.obj,
+		variables: {c: 'Bar'},
+		operationName: 'Obj',
+	}
+
+	const r = await got.post(`${prefixUrl}/gql`, {
+		headers,
+		throwHttpErrors: false,
+		responseType: 'json',
+		json,
 	})
 
-	it('obj', async () => {
-		const json = {}
-		json.query = source.obj
-		json.variables = {c: 'Bar'}
-		json.operationName = 'Obj'
-		const r = await got.post(`${baseUrl}/gql`, {
-			throwHttpErrors: false,
-			responseType: 'json',
-			json,
-		})
+	assert.equal(r.statusCode, 200)
+	assert.equal(r.body.data.obj.c.c, 'Bar')
+})
 
-		assert.equal(r.statusCode, 200)
-		assert.equal(r.body.data.obj.c.c, 'Bar')
+test('error', async () => {
+	const json = {
+		query: source.hello,
+		variables: {name: 'Sabrina'},
+		operationName: 'Nope',
+	}
+
+	const r = await got.post(`${prefixUrl}/gql`, {
+		headers,
+		throwHttpErrors: false,
+		responseType: 'json',
+		json,
 	})
 
-	it('error', async () => {
-		const json = {}
-		json.query = source.hello
-		json.variables = {name: 'Sabrina'}
-		json.operationName = 'Nope'
-		const r = await got.post(`${baseUrl}/gql`, {
-			throwHttpErrors: false,
-			responseType: 'json',
-			json,
-		})
+	assert.equal(r.statusCode, 400)
+	assert.equal(r.body.errors[0].message, 'Unknown operation named "Nope".')
+})
 
-		assert.equal(r.statusCode, 500)
-		assert.equal(r.body.errors[0].message, 'Unknown operation named "Nope".')
+test('error xxx', async () => {
+	const json = {
+		query: source.hello,
+		variables: {name: 'xxx'},
+		operationName: 'Hello',
+	}
+
+	const r = await got.post(`${prefixUrl}/gql`, {
+		headers,
+		throwHttpErrors: false,
+		responseType: 'json',
+		json,
 	})
 
-	it('error xxx', async () => {
-		const json = {}
-		json.query = source.hello
-		json.variables = {name: 'xxx'}
-		json.operationName = 'Hello'
-		const r = await got.post(`${baseUrl}/gql`, {
-			throwHttpErrors: false,
-			responseType: 'json',
-			json,
-		})
-
-		assert.equal(r.statusCode, 403)
-		assert.equal(r.body.errors[0].message, 'The name "xxx" is not permitted.')
-	})
+	assert.equal(r.statusCode, 403)
+	assert.equal(r.body.errors[0].message, 'The name "xxx" is not permitted.')
 })

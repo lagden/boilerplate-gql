@@ -1,7 +1,7 @@
 import process from 'node:process'
-import base from '@tadashi/koa-base'
-import ee from '@tadashi/ee'
 import * as debug from '@tadashi/debug'
+import ee from '@tadashi/ee'
+import base from '@tadashi/koa-base'
 import routes from './routes/routes.js'
 
 // prettier-ignore
@@ -27,9 +27,10 @@ const app = base({
 app
 	.use(routes)
 	.on('error', error => {
-		debug.error(error)
+		debug.error('app', error.message)
 		/* c8 ignore start */
 		if (error?.log) {
+			debug.error('app | log', error.log)
 			ee.emit('logger', error.log)
 		}
 		/* c8 ignore stop */

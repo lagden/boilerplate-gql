@@ -7,14 +7,7 @@ import schema from '../graphql/schema.js'
 const router = new Router()
 
 async function gql(ctx) {
-	let {
-		query,
-		variables,
-		//
-		source,
-		variableValues,
-		operationName,
-	} = ctx.request.body
+	let {query, variables, source, variableValues, operationName} = ctx.request.body
 
 	source = source ?? query
 	variableValues = variableValues ?? variables
@@ -32,14 +25,14 @@ async function gql(ctx) {
 		/* c8 ignore start */
 		error.log = {
 			level: 'error',
-			extensions_status_code: error?.extensions?.http?.status ?? 500,
+			extensions_status_code: error?.extensions?.http?.status ?? 400,
 			extensions_message: error?.extensions?.message ?? '',
 			message: error.message,
 			tracking_error: uuid(false),
 		}
 		/* c8 ignore stop */
 
-		ctx.status = error?.extensions?.http?.status ?? 500
+		ctx.status = error.log.extensions_status_code
 		ctx.app.emit('error', error)
 	}
 
