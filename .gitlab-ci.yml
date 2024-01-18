@@ -1,6 +1,6 @@
 variables:
   KUBE_NAMESPACE: boilerplate
-  HELM_RELEASE_NAME: rest
+  HELM_RELEASE_NAME: gql
 
 include:
   - project: 'inovacao/devops/template-cicd'
