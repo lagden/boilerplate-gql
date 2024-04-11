@@ -26,6 +26,8 @@
     "lodash.merge": "4.6.2"
   },
   "devDependencies": {
+    "@eslint/eslintrc": "3.0.2",
+    "@eslint/js": "9.0.0",
     "c8": "9.1.0",
     "eslint": "9.0.0",
     "eslint-plugin-unicorn": "52.0.0",
