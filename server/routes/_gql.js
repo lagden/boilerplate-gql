@@ -7,7 +7,14 @@ import schema from '../graphql/schema.js'
 const router = new Router()
 
 async function gql(ctx) {
-	let {query, variables, source, variableValues, operationName} = ctx.request.body
+	// prettier-ignore
+	let {
+		query,
+		variables,
+		source,
+		variableValues,
+		operationName,
+	} = ctx.request.body
 
 	source = source ?? query
 	variableValues = variableValues ?? variables
@@ -21,19 +28,28 @@ async function gql(ctx) {
 	})
 
 	if (response.errors) {
-		const [error] = response.errors
-		/* c8 ignore start */
-		error.log = {
-			level: 'error',
-			extensions_status_code: error?.extensions?.http?.status ?? 400,
-			extensions_message: error?.extensions?.message ?? '',
-			message: error.message,
-			tracking_error: uuid(false),
-		}
-		/* c8 ignore stop */
+		const mapError = response.errors.map(error => ({
+			/* c8 ignore start */
+			status: error?.extensions?.http?.status ?? 400,
+			message: error?.extensions?.message ?? error?.message ?? 'Bad Request',
+			log: {
+				level: 'error',
+				extensions_status_code: error?.extensions?.http?.status ?? 400,
+				extensions_message: error?.extensions?.message ?? '',
+				message: error?.message ?? 'Bad Request',
+				tracking_error: uuid(false),
+			},
+			/* c8 ignore stop */
+		}))
 
-		ctx.status = error.log.extensions_status_code
-		ctx.app.emit('error', error)
+		// Get first error
+		const [{status = 400, message = 'Bad Request'}] = mapError
+
+		const _error = new Error(message)
+		_error.log = mapError.map(item => item.log)
+
+		ctx.status = status
+		ctx.app.emit('error', _error)
 	}
 
 	ctx.body = response

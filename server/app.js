@@ -30,8 +30,11 @@ app
 		debug.error('app', error.message)
 		/* c8 ignore start */
 		if (error?.log) {
-			debug.error('app | log', error.log)
-			ee.emit('logger', error.log)
+			const _logs = Array.isArray(error.log) ? error.log : [error.log]
+			for (const _log of _logs) {
+				debug.error('app | log', _log)
+				ee.emit('logger', _log)
+			}
 		}
 		/* c8 ignore stop */
 	})
