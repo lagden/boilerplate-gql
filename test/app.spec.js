@@ -11,7 +11,9 @@ let server
 let prefixUrl
 
 before(async () => {
-	;({server, prefixUrl} = await start())
+	const run = await start()
+	server = run.server
+	prefixUrl = run.prefixUrl
 })
 
 after(async () => {
