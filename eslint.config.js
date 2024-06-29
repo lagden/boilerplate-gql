@@ -1,6 +1,5 @@
 import globals from 'globals'
 import eslintPluginUnicorn from 'eslint-plugin-unicorn'
-import eslintPluginSonarjs from 'eslint-plugin-sonarjs'
 import * as eslintrc from '@eslint/eslintrc'
 import js from '@eslint/js'
 
@@ -25,7 +24,6 @@ export default [
 	{
 		plugins: {
 			unicorn: eslintPluginUnicorn,
-			sonarjs: eslintPluginSonarjs,
 		},
 		rules: {
 			camelcase: 'off',
